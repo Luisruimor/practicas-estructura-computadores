@@ -1,1 +1,1 @@
-# practicas_estructura_computadores
+# Prácticas estructuras de computadores
