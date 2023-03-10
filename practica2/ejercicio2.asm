@@ -1,27 +1,38 @@
 .data
     # Exercise Header
     Practica:    .word 2
-    Ejercicio:    .word 1
+    Ejercicio:    .word 2
 
     Alumno_1:    .string "Luis_Ruiz_Moreno"
 
 	# Exercise Data
-	str_lower:	.string "puzzle"
+	str:	.string "puzzle"
 
 .text
 begin:
-	la a0,str_lower	# load lowecase word
+	la a0,str	# load lowecase word
 
 	li a7,4	# printString
 	ecall
 
 	mv t0,a0	# copy content a0 in t0
 
-	li a0,10	# ASCII(10) = line feed
+	li a0,10	#ASCII(10) = line feed
 	li a7,11
 	ecall
 
-	# load all characters
+    lw t4,32 # load " "
+    lw t5,46 # load "."
+    j loop
+
+space:
+
+
+loop:
+    # beq t,t4,space
+    beq t5,t5,end
+
+	# load the word characters
 	lb a1,0(t0)
 	lb a2,1(t0)
 	lb a3,2(t0)
@@ -45,5 +56,6 @@ begin:
     sb t5, 4(a0)
     sb t6, 5(a0)
 
+end:
     li a7, 4	# printString
     ecall
