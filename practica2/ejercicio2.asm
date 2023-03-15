@@ -3,59 +3,45 @@
     Practica:    .word 2
     Ejercicio:    .word 2
 
-    Alumno_1:    .string "Luis_Ruiz_Moreno"
+    Alumno_1:    .string "Luis Ruiz Moreno"
 
 	# Exercise Data
-	str:	.string "puzzle"
+	str:	.string "lorem ipsum es simplemente el texto de relleno."
 
 .text
 begin:
-	la a0,str	# load lowecase word
+    # print string
+    la a0, str
+    li a7, 4
+    ecall
 
-	li a7,4	# printString
-	ecall
+    mv t0, a0                  # copy the address of the string to t0
+    li t2, 97                  # load 97, if is lower than 97 is a space or a upper case
+    li t6,46                   # load the '.' character
 
-	mv t0,a0	# copy content a0 in t0
+    loop:
+        lb t4, 0(t0)           # charge the first character in t4
+        beq t4, zero, end_loop # if t4 is empty-> end_loop
+        beq t4,t6,end_loop     # if t4 is '.'-> end_loop
+        blt t4, t2, continue   # if t4 is lower than 97 (upper case or space) -> continue
+        addi t4, t4, -32       # subtract 32 to convert to upper case
+        sb t4, 0(t0)           # save the upper case character
 
-	li a0,10	#ASCII(10) = line feed
-	li a7,11
-	ecall
+    continue:
+        addi t0, t0, 1         # increment the pointer for the next character
+        j loop                 # next iteration
 
-    lw t4,32 # load " "
-    lw t5,46 # load "."
-    j loop
+    end_loop:
+        # print line feed
+        li a0, 10
+        li a7, 11
+        ecall                  # System call
 
-space:
-
-
-loop:
-    # beq t,t4,space
-    beq t5,t5,end
-
-	# load the word characters
-	lb a1,0(t0)
-	lb a2,1(t0)
-	lb a3,2(t0)
-	lb a4,3(t0)
-	lb a5,4(t0)
-	lb a6,5(t0)
-
-	# change characters to uppercase
-	addi t1, a1, -32	# lowercase - 32 = uppercase
-    addi t2, a2, -32
-    addi t3, a3, -32
-    addi t4, a4, -32
-    addi t5, a5, -32
-    addi t6, a6, -32
-
-	# write in a0 the uppercase characters
-	sb t1, 0(a0)
-    sb t2, 1(a0)
-    sb t3, 2(a0)
-    sb t4, 3(a0)
-    sb t5, 4(a0)
-    sb t6, 5(a0)
+        # print the upper case string
+        la a0, str
+        li a7, 4
+        ecall                  # System call
 
 end:
-    li a7, 4	# printString
+    li a7, 10
     ecall
