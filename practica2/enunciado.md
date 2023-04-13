@@ -5,3 +5,5 @@ Definir una variable de tipo string en memoria e inicializarla con cualquier pal
 
 ### Ejercicio 2 - Conversión de mayúsculas en minúsculas :bangbang:
 Definir una variable de cadena en memoria, de longitud indeterminada, e inicializarla con una frase. La frase puede contener cualquier cantidad de letras minúsculas y espacios en blanco pero debe acabar en punto. Repetir el apartado anterior, pero esta vez utilizando un bucle. La condición de parada del bucle se producirá al encontrar el punto final de la frase.
+
+[Resolución](ejercicio2.asm)
