@@ -7,8 +7,8 @@
 
 	# Exercise Data
     year: .word 200
-    bisiesto: .string " es bisiesto"
-    noBisiesto: .string " no es bisiesto"
+    leap: .string " es bisiesto"
+    noLeap: .string " no es bisiesto"
 
 .text
 begin:
@@ -41,12 +41,12 @@ thirdStep:
     beq t3, zero, noLeapYear  # remainder = 0, is not leapYear
 leapYear:
 
-    la a0, bisiesto # Load in a0 the result (leap year)
+    la a0, leap # Load in a0 the result (leap year)
     j end   # Jump to the end of the program
 
 noLeapYear:
 
-    la a0, noBisiesto # Load in a0 the result (no leap year)
+    la a0, noLeap # Load in a0 the result (no leap year)
 
 end:
     # Print the result

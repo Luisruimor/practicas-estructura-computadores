@@ -11,7 +11,7 @@
 .text
 begin:
     lw a1, year                                 # Load year value
-    jal ra, checkBisiesto                       # call procedure
+    jal ra, checkLeapYear                      # call procedure
 
     # Print result
     mv a0, a2
@@ -20,12 +20,12 @@ begin:
 
     j end
 
-checkBisiesto:      # a1: year value
+checkLeapYear:      # a1: year value
                     # a2: result
                     # Function: to check if year is leapYear
 
 
-beginCheckBisisesto:
+beginCheckLeapYear:
 #----------------------
 # save context
     addi sp, sp, -16    # move stack pointer to save context
@@ -43,28 +43,28 @@ beginCheckBisisesto:
 firstStep:
 
     beq t3, zero, secondStep    # remainder = 0, next step
-    bne t3, zero, noEsBisiesto  # remainder != 0, is not leapYear
+    bne t3, zero, noLeapYear  # remainder != 0, is not leapYear
 
 secondStep:
 
     rem t3, a1, t2  # remainder of year/400
-    beq t3, zero, esBisiesto  # remainder = 0, is leapYear
+    beq t3, zero, leapYear  # remainder = 0, is leapYear
     bne t3, zero, thirdStep   # remainder != 0, next step
 thirdStep:
 
     rem t3, a1, t1  # remainder of year/100
-    beq t3, zero, noEsBisiesto  # remainder = 0, is not leapYear
+    beq t3, zero, noLeapYear  # remainder = 0, is not leapYear
 
-esBisiesto:
+leapYear:
 
     li a2, 1                                    # result = 1
-    j restoreCheckBisiesto
+    j restoreCheckLeapYear
 
-noEsBisiesto:
+noLeapYear:
 
     li a2, 0                                    # result = 0
 #--------------------------------------------------------------------------------------------------------------
-restoreCheckBisiesto:
+restoreCheckLeapYear:
     # restore context
     lw t0, 0(sp)
     lw t1, 4(sp)
